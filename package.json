@@ -1,0 +1,67 @@
+{
+  "author": "Florian Keller <github@floriankeller.de>",
+  "bin": {
+    "<bin name>": "dist/cli.js"
+  },
+  "dependencies": {
+  },
+  "description": "<description>",
+  "devDependencies": {
+    "@semantic-release/changelog": "3.0.2",
+    "@semantic-release/git": "7.0.8",
+    "@types/jasmine": "3.3.12",
+    "@types/node": "11.12.0",
+    "husky": "1.3.1",
+    "jasmine": "3.3.1",
+    "lint-staged": "8.1.5",
+    "prettier": "1.16.4",
+    "rimraf": "2.6.3",
+    "semantic-release": "15.13.3",
+    "ts-node": "8.0.3",
+    "tslint": "5.14.0",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "3.4.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "cli",
+    "typescript"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "src/**/*.ts": [
+      "tslint --project tsconfig.json --fix",
+      "git add"
+    ],
+    "spec/**/*.ts": [
+      "tslint --project tsconfig.jasmine.json --fix",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "main": "dist/index.js",
+  "name": "@ffflorian/ts-boilerplate",
+  "repository": "https://github.com/ffflorian/ts-boilerplate.git",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "dist": "yarn clean && yarn build",
+    "fix": "yarn fix:other && yarn fix:ts",
+    "fix:other": "yarn prettier --write",
+    "fix:ts": "yarn lint:ts --fix && yarn lint:ts:spec --fix",
+    "lint": "yarn lint:ts && yarn lint:ts:spec && yarn lint:other",
+    "lint:other": "yarn prettier --list-different",
+    "lint:ts": "tslint --project tsconfig.json",
+    "lint:ts:spec": "tslint --project tsconfig.jasmine.json",
+    "prettier": "prettier \"*.{json,md}\"",
+    "release": "semantic-release",
+    "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
+  },
+  "version": "1.0.0"
+}
