@@ -1,8 +1,6 @@
 workflow "Install and lint" {
   on = "push"
-  resolves = [
-    "Lint project"
-  ]
+  resolves = "Lint project"
 }
 
 action "Don't skip CI" {
@@ -11,13 +9,13 @@ action "Don't skip CI" {
 }
 
 action "Install dependencies" {
-  uses = "ffflorian/actions/git-node@master"
+  uses = "docker://node:11-slim"
   needs = "Don't skip CI"
   runs = "yarn"
 }
 
 action "Lint project" {
-  uses = "ffflorian/actions/git-node@master"
+  uses = "docker://node:11-slim"
   needs = "Install dependencies"
   runs = "yarn"
   args = "lint"
