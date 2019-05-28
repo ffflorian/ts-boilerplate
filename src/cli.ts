@@ -26,4 +26,8 @@ boilerplate
   .download()
   .then(() => boilerplate.unzip())
   .then(() => boilerplate.write())
-  .catch(console.error);
+  .then(() => boilerplate.cleanup())
+  .catch(error => {
+    console.error(error);
+    return boilerplate.cleanup();
+  });

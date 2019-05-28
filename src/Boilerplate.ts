@@ -1,5 +1,5 @@
+import {https} from 'follow-redirects';
 import * as fs from 'fs-extra';
-import * as https from 'http';
 import * as JSZip from 'jszip';
 import * as os from 'os';
 import * as path from 'path';
@@ -37,20 +37,22 @@ export class TSBoilerplate {
   private readonly boilerplateEntries: string[];
   private readonly downloadUrl: string;
   private readonly options: Required<BoilerplateOptions>;
+  private readonly downloadProjectName: string;
   private downloadTmpDir?: string;
   private unzipTmpDir?: string;
 
   constructor(options?: BoilerplateOptions) {
     this.options = {...defaultOptions, ...options};
     this.options.outputDir = path.resolve(this.options.outputDir);
-    this.downloadUrl = 'https://github.com/ffflorian/ts-boilerplate/archive/master.zip';
+    this.downloadProjectName = 'ts-boilerplate';
+    this.downloadUrl = `https://github.com/ffflorian/${this.downloadProjectName}/archive/master.zip`;
     this.boilerplateEntries = boilerplateEntries;
     fs.ensureDirSync(this.options.outputDir);
   }
 
   private async createTmpDir(): Promise<string> {
     const osTmpDir = os.tmpdir();
-    const fullPath = path.join(osTmpDir, 'ts-boilerplate-');
+    const fullPath = path.join(osTmpDir, `${this.downloadProjectName}-`);
     const tmpDir = await fs.mkdtemp(fullPath);
     console.info(`Created temp dir "${tmpDir}"`);
     return tmpDir;
@@ -91,9 +93,14 @@ export class TSBoilerplate {
     for (const entry of this.boilerplateEntries) {
       const resolvedSourceFile = path.join(this.unzipTmpDir, entry);
       const resolvedDestFile = path.join(this.options.outputDir, entry);
-      await fs.copy(resolvedSourceFile, resolvedDestFile, {
-        overwrite: this.options.yes,
-      });
+      try {
+        await fs.copy(resolvedSourceFile, resolvedDestFile, {
+          errorOnExist: true,
+          overwrite: this.options.yes,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
@@ -118,7 +125,7 @@ export class TSBoilerplate {
       'https://dependabot.com',
       'Dependabot Status'
     );
-    const readmeContent = `# ${name} ${buildStatus} ${dependabotStatus}\n\n${description}`;
+    const readmeContent = `# ${name} ${buildStatus} ${dependabotStatus}\n\n${description}\n`;
     await fs.writeFile(readmeFile, readmeContent, 'utf8');
   }
 
@@ -140,7 +147,7 @@ export class TSBoilerplate {
     await fs.writeFile(packageJsonFile, JSON.stringify(packageJson, null, 2), 'utf8');
   }
 
-  async unzip(): Promise<void> {
+  public async unzip(): Promise<void> {
     if (!this.downloadTmpDir) {
       throw new Error('No files downloaded yet');
     }
@@ -154,7 +161,13 @@ export class TSBoilerplate {
 
     await jszip.loadAsync(data, {createFolders: true});
 
-    jszip.forEach((filePath, entry) => entries.push([filePath, entry]));
+    const topDirectoryName = `${this.downloadProjectName}-master`;
+
+    jszip.forEach((filePath, entry) => {
+      filePath = filePath.replace(`${topDirectoryName}/`, '');
+      entry.name = entry.name.replace(`${topDirectoryName}/`, '');
+      entries.push([filePath, entry]);
+    });
 
     for (const [filePath, entry] of entries) {
       const resolvedFilePath = path.join(this.unzipTmpDir, filePath);
@@ -168,6 +181,17 @@ export class TSBoilerplate {
 
     await this.cleanupPackage();
     await this.createReadme();
-    await fs.remove(this.downloadTmpDir);
+  }
+
+  public async cleanup(): Promise<void> {
+    if (this.downloadTmpDir) {
+      console.info('Cleaning temporary download directory ...');
+      await fs.remove(this.downloadTmpDir);
+    }
+
+    if (this.unzipTmpDir) {
+      console.info('Cleaning temporary unzip directory ...');
+      await fs.remove(this.unzipTmpDir);
+    }
   }
 }
