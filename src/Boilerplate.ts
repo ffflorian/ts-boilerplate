@@ -43,8 +43,7 @@ export class TSBoilerplate {
   constructor(options?: BoilerplateOptions) {
     this.options = {...defaultOptions, ...options};
     this.options.outputDir = path.resolve(this.options.outputDir);
-    //this.downloadUrl = 'https://github.com/ffflorian/ts-boilerplate/archive/master.zip';
-    this.downloadUrl = 'http://localhost:8000/master.zip';
+    this.downloadUrl = 'https://github.com/ffflorian/ts-boilerplate/archive/master.zip';
     this.boilerplateEntries = boilerplateEntries;
     fs.ensureDirSync(this.options.outputDir);
   }
@@ -98,18 +97,28 @@ export class TSBoilerplate {
     }
   }
 
+  private generateMarkdownImageLink(imageUrl: string, linkUrl?: string, imageTitle: string = ''): string {
+    return `[![${imageTitle}](${imageUrl})](${linkUrl})`;
+  }
+
   private async createReadme(): Promise<void> {
+    const {description, name} = this.options;
     if (!this.downloadTmpDir || !this.unzipTmpDir) {
       throw new Error('No files downloaded yet');
     }
 
     const readmeFile = path.join(this.unzipTmpDir, 'README.md');
-    let readmeContent = `# ${
-      this.options.name
-    } [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/${
-      this.options.name
-    })](https://dependabot.com)`;
-    readmeContent += `\n\n${this.options.description}`;
+    const buildStatus = this.generateMarkdownImageLink(
+      `https://action-badges.now.sh/ffflorian/${name}`,
+      `https://github.com/ffflorian/${name}/actions/`,
+      'Build Status'
+    );
+    const dependabotStatus = this.generateMarkdownImageLink(
+      `https://api.dependabot.com/badges/status?host=github&repo=ffflorian/${name}`,
+      'https://dependabot.com',
+      'Dependabot Status'
+    );
+    const readmeContent = `# ${name} ${buildStatus} ${dependabotStatus}\n\n${description}`;
     await fs.writeFile(readmeFile, readmeContent, 'utf8');
   }
 
