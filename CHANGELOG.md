@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/ffflorian/ts-boilerplate/compare/v1.0.0...v1.0.1) (2019-05-28)
+
+### Bug Fixes
+
+- Automatic releases ([9a36d88](https://github.com/ffflorian/ts-boilerplate/commit/9a36d88))
+
 # 1.0.0 (2019-05-28)
 
 ### Bug Fixes
