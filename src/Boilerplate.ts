@@ -33,6 +33,25 @@ const boilerplateEntries = [
   'tslint.json',
 ];
 
+const devDependencies = [
+  '@ffflorian/prettier-config',
+  '@ffflorian/tslint-config',
+  '@semantic-release/changelog',
+  '@semantic-release/git',
+  '@types/jasmine',
+  'husky',
+  'jasmine',
+  'lint-staged',
+  'prettier',
+  'rimraf',
+  'semantic-release',
+  'ts-node',
+  'tslint',
+  'tslint-config-prettier',
+  'tslint-plugin-prettier',
+  'typescript',
+];
+
 export class TSBoilerplate {
   private readonly boilerplateEntries: string[];
   private readonly downloadUrl: string;
@@ -142,9 +161,9 @@ export class TSBoilerplate {
     packageJson.repository = '<repository>';
     packageJson.version = '1.0.0';
     delete packageJson.bin;
-    delete packageJson.devDependencies['@types/jszip'];
-    delete packageJson.devDependencies['@types/fs-extra'];
-    delete packageJson.devDependencies['@types/cli-interact'];
+    packageJson.devDependencies = packageJson.devDependencies.filter((dependency: string) =>
+      devDependencies.includes(dependency)
+    );
     await fs.writeFile(packageJsonFile, JSON.stringify(packageJson, null, 2), 'utf8');
   }
 
