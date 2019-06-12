@@ -38,6 +38,7 @@ boilerplate
   .then(() => boilerplate.unzip())
   .then(() => boilerplate.write())
   .then(() => boilerplate.cleanup())
+  .then(() => console.log('Done'))
   .catch(async error => {
     console.error(error);
     await boilerplate.cleanup();
