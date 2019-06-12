@@ -39,6 +39,7 @@ const devDependencies = [
   '@semantic-release/changelog',
   '@semantic-release/git',
   '@types/jasmine',
+  '@types/node',
   'husky',
   'jasmine',
   'lint-staged',
@@ -161,9 +162,11 @@ export class TSBoilerplate {
     packageJson.repository = '<repository>';
     packageJson.version = '1.0.0';
     delete packageJson.bin;
-    packageJson.devDependencies = packageJson.devDependencies.filter((dependency: string) =>
-      devDependencies.includes(dependency)
-    );
+    const newDevDeps = devDependencies.reduce((dependencies: Record<string, string>, dependency: string) => {
+      dependencies[dependency] = packageJson.devDependencies[dependency];
+      return dependencies;
+    }, {});
+    packageJson.devDependencies = newDevDeps;
     await fs.writeFile(packageJsonFile, JSON.stringify(packageJson, null, 2), 'utf8');
   }
 
