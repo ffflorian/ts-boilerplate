@@ -4,6 +4,7 @@
     "ts-boilerplate": "dist/cli.js"
   },
   "dependencies": {
+    "cli-interact": "0.1.9",
     "commander": "2.20.0",
     "follow-redirects": "1.7.0",
     "fs-extra": "8.0.1",
@@ -15,6 +16,7 @@
     "@ffflorian/tslint-config": "0.2.2",
     "@semantic-release/changelog": "3.0.2",
     "@semantic-release/git": "7.0.8",
+    "@types/cli-interact": "0.1.0",
     "@types/follow-redirects": "1.5.0",
     "@types/fs-extra": "7.0.0",
     "@types/jasmine": "3.3.13",

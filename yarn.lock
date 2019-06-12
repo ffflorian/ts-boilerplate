@@ -192,6 +192,13 @@
     into-stream "^4.0.0"
     lodash "^4.17.4"
 
+"@types/cli-interact@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@types/cli-interact/-/cli-interact-0.1.0.tgz#63379a2009727dd3d893d098bc183700c28ee711"
+  integrity sha512-Xq/ucHBj2GLoW0bWEm4KnzUy+joweC1A/ce4W4qxie84c0OFyZ2Q2Uli+2q6nkDBNQfm+wccJp8NGvExg+xj1g==
+  dependencies:
+    "@types/readline-sync" "*"
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -246,6 +253,11 @@
   version "2.4.0"
   resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
+
+"@types/readline-sync@*":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@types/readline-sync/-/readline-sync-1.4.3.tgz#eac55a39d5a349912062c9e5216cd550c07fd9c8"
+  integrity sha512-YP9NVli96E+qQLAF2db+VjnAUEeZcFVg4YnMgr8kpDUFwQBnj31rPLOVHmazbKQhaIkJ9cMHsZhpKdzUeL0KTg==
 
 JSONStream@^1.0.4, JSONStream@^1.3.4:
   version "1.3.5"
@@ -814,6 +826,13 @@ cli-cursor@^2.0.0, cli-cursor@^2.1.0:
   integrity sha1-s12sN2R5+sw+lHR9QdDQ9SOP/LU=
   dependencies:
     restore-cursor "^2.0.0"
+
+cli-interact@0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/cli-interact/-/cli-interact-0.1.9.tgz#e58ae8505bbf7ed2e12671057cd559b12fdce28f"
+  integrity sha1-5YroUFu/ftLhJnEFfNVZsS/c4o8=
+  dependencies:
+    readline-sync "~0.4.9"
 
 cli-table3@^0.5.0:
   version "0.5.1"
@@ -4250,6 +4269,11 @@ readdir-scoped-modules@^1.0.0:
     dezalgo "^1.0.0"
     graceful-fs "^4.1.2"
     once "^1.3.0"
+
+readline-sync@~0.4.9:
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-0.4.10.tgz#bef03d993eca3585fd064f5d56d7276765dfc121"
+  integrity sha1-vvA9mT7KNYX9Bk9dVtcnZ2XfwSE=
 
 redent@^2.0.0:
   version "2.0.0"
