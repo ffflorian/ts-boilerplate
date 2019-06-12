@@ -144,6 +144,7 @@ export class TSBoilerplate {
     delete packageJson.bin;
     delete packageJson.devDependencies['@types/jszip'];
     delete packageJson.devDependencies['@types/fs-extra'];
+    delete packageJson.devDependencies['@types/cli-interact'];
     await fs.writeFile(packageJsonFile, JSON.stringify(packageJson, null, 2), 'utf8');
   }
 

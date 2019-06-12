@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
+import {getYesNo} from 'cli-interact';
 import * as program from 'commander';
+import * as fs from 'fs-extra';
+import * as path from 'path';
+
 import {TSBoilerplate} from './Boilerplate';
 
 const {name, version, description}: {name: string; version: string; description: string} = require('../package.json');
@@ -8,7 +12,7 @@ const {name, version, description}: {name: string; version: string; description:
 program
   .name(name.replace(/^@[^/]+\//, ''))
   .description(description)
-  .option('-o, --output <dir>', 'set the output directory (default: ".")')
+  .option('-o, --output <dir>', 'set the output directory', '.')
   .option('-n, --project-name <name>', 'set the project name')
   .option('-d, --project-description <description>', 'set the project name')
   .option('-y, --yes', 'Use default options')
@@ -22,12 +26,20 @@ const boilerplate = new TSBoilerplate({
   ...(typeof program.yes !== 'undefined' && {yes: program.yes}),
 });
 
+if (!fs.existsSync(path.resolve('.git')) && !program.yes) {
+  const canContinue = getYesNo('No git directory found. Do you really want to continue?');
+  if (!canContinue) {
+    process.exit();
+  }
+}
+
 boilerplate
   .download()
   .then(() => boilerplate.unzip())
   .then(() => boilerplate.write())
   .then(() => boilerplate.cleanup())
-  .catch(error => {
+  .catch(async error => {
     console.error(error);
-    return boilerplate.cleanup();
+    await boilerplate.cleanup();
+    process.exit(1);
   });
