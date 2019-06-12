@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/ffflorian/ts-boilerplate/compare/v1.0.1...v1.1.0) (2019-06-12)
+
+### Features
+
+- Add safety question if outside of git directory ([#56](https://github.com/ffflorian/ts-boilerplate/issues/56)) ([3fe9efb](https://github.com/ffflorian/ts-boilerplate/commit/3fe9efb))
+
 ## [1.0.1](https://github.com/ffflorian/ts-boilerplate/compare/v1.0.0...v1.0.1) (2019-05-28)
 
 ### Bug Fixes
