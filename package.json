@@ -67,7 +67,9 @@
   "main": "dist/index.js",
   "name": "@ffflorian/ts-boilerplate",
   "prettier": "@ffflorian/prettier-config",
-  "release": "@ffflorian/semantic-release-config",
+  "release": {
+    "extends": "@ffflorian/semantic-release-config"
+  },
   "repository": "https://github.com/ffflorian/ts-boilerplate.git",
   "scripts": {
     "build": "tsc",
@@ -86,5 +88,5 @@
     "start": "ts-node src/cli.ts",
     "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
