@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/ffflorian/ts-boilerplate/compare/v1.2.1...v1.2.2) (2019-06-22)
+
+### Bug Fixes
+
+- package.json path in CLI ([6e584b0](https://github.com/ffflorian/ts-boilerplate/commit/6e584b0))
+
 ## [1.2.1](https://github.com/ffflorian/ts-boilerplate/compare/v1.2.0...v1.2.1) (2019-06-22)
 
 ### Bug Fixes
