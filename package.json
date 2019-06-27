@@ -20,7 +20,7 @@
     "@semantic-release/npm": "5.1.13",
     "@types/cli-interact": "0.1.0",
     "@types/follow-redirects": "1.5.0",
-    "@types/fs-extra": "7.0.0",
+    "@types/fs-extra": "8.0.0",
     "@types/jasmine": "3.3.13",
     "@types/jszip": "3.1.6",
     "@types/node": "~12",
