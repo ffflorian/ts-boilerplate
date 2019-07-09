@@ -74,14 +74,6 @@ export class TSBoilerplate {
     fs.ensureDirSync(this.options.outputDir);
   }
 
-  private async createTmpDir(): Promise<string> {
-    const osTmpDir = os.tmpdir();
-    const fullPath = path.join(osTmpDir, `${this.downloadProjectName}-`);
-    const tmpDir = await fs.mkdtemp(fullPath);
-    console.info(`Created temp dir "${tmpDir}"`);
-    return tmpDir;
-  }
-
   public async download(): Promise<void> {
     if (!this.downloadTmpDir) {
       console.info(`No temp dir yet. Creating ...`);
@@ -126,52 +118,6 @@ export class TSBoilerplate {
         console.error(error);
       }
     }
-  }
-
-  private generateMarkdownImageLink(imageUrl: string, linkUrl?: string, imageTitle: string = ''): string {
-    return `[![${imageTitle}](${imageUrl})](${linkUrl})`;
-  }
-
-  private async createReadme(): Promise<void> {
-    const {description, name} = this.options;
-    if (!this.downloadTmpDir || !this.unzipTmpDir) {
-      throw new Error('No files downloaded yet');
-    }
-
-    const readmeFile = path.join(this.unzipTmpDir, 'README.md');
-    const buildStatus = this.generateMarkdownImageLink(
-      `https://action-badges.now.sh/ffflorian/${name}`,
-      `https://github.com/ffflorian/${name}/actions/`,
-      'Build Status'
-    );
-    const dependabotStatus = this.generateMarkdownImageLink(
-      `https://api.dependabot.com/badges/status?host=github&repo=ffflorian/${name}`,
-      'https://dependabot.com',
-      'Dependabot Status'
-    );
-    const readmeContent = `# ${name} ${buildStatus} ${dependabotStatus}\n\n${description}\n`;
-    await fs.writeFile(readmeFile, readmeContent, 'utf8');
-  }
-
-  private async cleanupPackage(): Promise<void> {
-    if (!this.downloadTmpDir || !this.unzipTmpDir) {
-      throw new Error('No files downloaded yet');
-    }
-
-    const packageJsonFile = path.join(this.unzipTmpDir, 'package.json');
-    const packageJson = await fs.readJSON(packageJsonFile);
-    packageJson.dependencies = {};
-    packageJson.description = this.options.description;
-    packageJson.name = this.options.name;
-    packageJson.repository = '<repository>';
-    packageJson.version = '1.0.0';
-    delete packageJson.bin;
-    const newDevDeps = devDependencies.reduce((dependencies: Record<string, string>, dependency: string) => {
-      dependencies[dependency] = packageJson.devDependencies[dependency];
-      return dependencies;
-    }, {});
-    packageJson.devDependencies = newDevDeps;
-    await fs.writeFile(packageJsonFile, JSON.stringify(packageJson, null, 2), 'utf8');
   }
 
   public async unzip(): Promise<void> {
@@ -220,5 +166,59 @@ export class TSBoilerplate {
       console.info('Cleaning temporary unzip directory ...');
       await fs.remove(this.unzipTmpDir);
     }
+  }
+
+  private async createTmpDir(): Promise<string> {
+    const osTmpDir = os.tmpdir();
+    const fullPath = path.join(osTmpDir, `${this.downloadProjectName}-`);
+    const tmpDir = await fs.mkdtemp(fullPath);
+    console.info(`Created temp dir "${tmpDir}"`);
+    return tmpDir;
+  }
+
+  private generateMarkdownImageLink(imageUrl: string, linkUrl?: string, imageTitle: string = ''): string {
+    return `[![${imageTitle}](${imageUrl})](${linkUrl})`;
+  }
+
+  private async createReadme(): Promise<void> {
+    const {description, name} = this.options;
+    if (!this.downloadTmpDir || !this.unzipTmpDir) {
+      throw new Error('No files downloaded yet');
+    }
+
+    const readmeFile = path.join(this.unzipTmpDir, 'README.md');
+    const buildStatus = this.generateMarkdownImageLink(
+      `https://action-badges.now.sh/ffflorian/${name}`,
+      `https://github.com/ffflorian/${name}/actions/`,
+      'Build Status'
+    );
+    const dependabotStatus = this.generateMarkdownImageLink(
+      `https://api.dependabot.com/badges/status?host=github&repo=ffflorian/${name}`,
+      'https://dependabot.com',
+      'Dependabot Status'
+    );
+    const readmeContent = `# ${name} ${buildStatus} ${dependabotStatus}\n\n${description}\n`;
+    await fs.writeFile(readmeFile, readmeContent, 'utf8');
+  }
+
+  private async cleanupPackage(): Promise<void> {
+    if (!this.downloadTmpDir || !this.unzipTmpDir) {
+      throw new Error('No files downloaded yet');
+    }
+
+    const packageJsonFile = path.join(this.unzipTmpDir, 'package.json');
+    const packageJson = await fs.readJSON(packageJsonFile);
+    packageJson.dependencies = {};
+    packageJson.description = this.options.description;
+    packageJson.name = this.options.name;
+    packageJson.repository = '<repository>';
+    packageJson.version = '1.0.0';
+    delete packageJson.bin;
+    const newDevDeps = devDependencies.reduce((dependencies: Record<string, string>, dependency: string) => {
+      dependencies[dependency] = packageJson.devDependencies[dependency];
+      return dependencies;
+    }, {});
+    packageJson.devDependencies = newDevDeps;
+    await fs.writeFile(packageJsonFile, JSON.stringify(packageJson, null, 2), 'utf8');
   }
 }
