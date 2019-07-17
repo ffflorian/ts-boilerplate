@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/ffflorian/ts-boilerplate/compare/v1.2.2...v2.0.0) (2019-07-17)
+
+### Features
+
+- Set ES6 as target and require Node >= 10.9 ([#98](https://github.com/ffflorian/ts-boilerplate/issues/98)) ([fbe1766](https://github.com/ffflorian/ts-boilerplate/commit/fbe1766))
+
+### BREAKING CHANGES
+
+- Node.js >= 10.9 is required.
+
 ## [1.2.2](https://github.com/ffflorian/ts-boilerplate/compare/v1.2.1...v1.2.2) (2019-06-22)
 
 ### Bug Fixes
