@@ -2,18 +2,10 @@
 
 A boilerplate for a modern™ TypeScript project.
 
+## Installation
+
+Run `yarn add ts-boilerplate` or `npm i ts-boilerplate`
+
 ## Usage
 
-```
-Usage: ts-boilerplate [options]
-
-A boilerplate for a modern™ TypeScript project.
-
-Options:
-  -o, --output <dir>                       set the output directory (default: ".")
-  -n, --project-name <name>                set the project name
-  -d, --project-description <description>  set the project name
-  -y, --yes                                Use default options
-  -v, --version                            output the version number
-  -h, --help                               output usage information
-```
+Write something!

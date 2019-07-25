@@ -1,7 +1,7 @@
 {
   "author": "Florian Keller <github@floriankeller.de>",
   "bin": {
-    "ts-boilerplate": "dist/cli.js"
+    "my-cli": "dist/cli.js"
   },
   "dependencies": {
     "cli-interact": "0.1.9",
@@ -10,10 +10,9 @@
     "fs-extra": "8.1.0",
     "jszip": "3.2.2"
   },
-  "description": "A boilerplate for a modern™ TypeScript project.",
+  "description": "My latest project",
   "devDependencies": {
     "@ffflorian/prettier-config": "0.0.5",
-    "@ffflorian/semantic-release-config": "0.1.2",
     "@ffflorian/tslint-config": "0.4.0",
     "@semantic-release/changelog": "3.0.4",
     "@semantic-release/git": "7.0.16",
@@ -28,7 +27,6 @@
     "jasmine": "3.4.0",
     "lint-staged": "9.2.0",
     "prettier": "1.18.2",
-    "publish-flat": "1.2.4",
     "rimraf": "2.6.3",
     "semantic-release": "15.13.18",
     "ts-node": "8.3.0",
@@ -68,17 +66,13 @@
     ]
   },
   "main": "dist/index.js",
-  "name": "@ffflorian/ts-boilerplate",
+  "name": "@ffflorian/my-new-project",
   "prettier": "@ffflorian/prettier-config",
-  "release": {
-    "extends": "@ffflorian/semantic-release-config"
-  },
-  "repository": "https://github.com/ffflorian/ts-boilerplate.git",
+  "repository": "https://github.com/ffflorian/my-new-project.git",
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
     "dist": "yarn clean && yarn build",
-    "flatten": "publish-flat -o flattened",
     "fix": "yarn fix:other && yarn fix:ts",
     "fix:other": "yarn prettier --write",
     "fix:ts": "yarn lint:ts --fix && yarn lint:ts:spec --fix",
@@ -91,5 +85,5 @@
     "start": "ts-node src/cli.ts",
     "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
-  "version": "1.2.1"
+  "version": "1.0.0"
 }
