@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "cli-interact": "0.1.9",
-    "commander": "2.20.0",
+    "commander": "3.0.0",
     "follow-redirects": "1.7.0",
     "fs-extra": "8.1.0",
     "jszip": "3.2.2"
