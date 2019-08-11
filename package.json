@@ -4,11 +4,6 @@
     "my-cli": "dist/cli.js"
   },
   "dependencies": {
-    "cli-interact": "0.1.9",
-    "commander": "3.0.0",
-    "follow-redirects": "1.7.0",
-    "fs-extra": "8.1.0",
-    "jszip": "3.2.2"
   },
   "description": "My latest project",
   "devDependencies": {
@@ -17,11 +12,7 @@
     "@semantic-release/changelog": "3.0.4",
     "@semantic-release/git": "7.0.16",
     "@semantic-release/npm": "5.1.13",
-    "@types/cli-interact": "0.1.0",
-    "@types/follow-redirects": "1.5.0",
-    "@types/fs-extra": "8.0.0",
     "@types/jasmine": "3.4.0",
-    "@types/jszip": "3.1.6",
     "@types/node": "~12",
     "husky": "3.0.3",
     "jasmine": "3.4.0",
