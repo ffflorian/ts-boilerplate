@@ -4,7 +4,7 @@ A boilerplate for a modern™ TypeScript project.
 
 ## Installation
 
-Run `yarn add ts-boilerplate` or `npm i ts-boilerplate`
+Fork this repository or [create a new repository](https://github.com/new) and use this as template.
 
 ## Usage
 
