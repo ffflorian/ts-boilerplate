@@ -4,7 +4,7 @@ A boilerplate for a modern™ TypeScript project.
 
 ## Installation
 
-Fork this repository or [create a new repository](https://github.com/new) and use this as template.
+Fork this repository, [create a new repository](https://github.com/new) and use this as template or just [generate](https://github.com/ffflorian/ts-boilerplate/generate) a repository from this.
 
 ## Usage
 
