@@ -8,7 +8,7 @@ Fork this repository or just [generate a new one](https://github.com/ffflorian/t
 
 ## Usage
 
-* Clone your new repository
-* Run `yarn` in the new repository
-* Start coding
-* Don't forget to update the `package.json`!
+- Clone your new repository
+- Run `yarn` in the new repository
+- Start coding
+- Don't forget to update the `package.json`!
