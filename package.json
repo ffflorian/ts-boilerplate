@@ -5,13 +5,12 @@
   },
   "dependencies": {
   },
-  "description": "My latest project",
+  "description": "A boilerplate for a modern™ TypeScript project.",
   "devDependencies": {
     "@ffflorian/prettier-config": "0.0.5",
     "@ffflorian/tslint-config": "0.5.0",
     "@semantic-release/changelog": "3.0.4",
     "@semantic-release/git": "7.0.16",
-    "@semantic-release/npm": "5.1.15",
     "@types/jasmine": "3.4.0",
     "@types/node": "~12",
     "husky": "3.0.4",
@@ -57,9 +56,10 @@
     ]
   },
   "main": "dist/index.js",
-  "name": "@ffflorian/my-new-project",
+  "name": "@ffflorian/ts-boilerplate",
   "prettier": "@ffflorian/prettier-config",
-  "repository": "https://github.com/ffflorian/my-new-project.git",
+  "private": true,
+  "repository": "https://github.com/ffflorian/ts-boilerplate.git",
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
