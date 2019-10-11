@@ -8,7 +8,7 @@
  *
  * import * as commander from 'commander';
  *
- * const {description, name} = require('../package.json');
+ * const {description, name, version} = require('../package.json');
  *
  * commander
  *  .name(name)
