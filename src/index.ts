@@ -3,5 +3,7 @@
  *
  * Example:
  *
+ * ```
  * export * from './project';
+ * ```
  */

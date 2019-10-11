@@ -3,7 +3,9 @@
  *
  * Example:
  *
+ * ```
  * export class Project {
  *   constructor ()
  * }
+ * ```
  */

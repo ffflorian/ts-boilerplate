@@ -3,6 +3,7 @@
  *
  * Example:
  *
+ * ```
  * #!/usr/bin/env node
  *
  * import * as commander from 'commander';
@@ -14,4 +15,5 @@
  *  .description(description)
  *  .version(version, '-v, --version')
  *  .parse(process.argv);
+ * ```
  */
