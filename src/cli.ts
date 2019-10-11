@@ -9,7 +9,7 @@
  *
  * const {description, name} = require('../package.json');
  *
- * program
+ * commander
  *  .name(name)
  *  .description(description)
  *  .version(version, '-v, --version')
