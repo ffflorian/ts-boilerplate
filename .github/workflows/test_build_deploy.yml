@@ -1,0 +1,79 @@
+name: Test, Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test_build_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set & print environment variables
+        env:
+          GITHUB_CONTEXT: ${{toJson(github)}}
+          GITHUB_TOKEN: ${{github.token}}
+        run: |
+          echo "::set-env name=BRANCH_NAME::$(git branch --show-current)"
+          echo "::set-env name=TAG::$(git tag --points-at ${{github.sha}})"
+          echo "::set-env name=TITLE::${{github.event.pull_request.title || github.event.head_commit.message}}"
+          echo "::set-env name=LAST_COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{github.event.after}})"
+          echo "::set-env name=REPO_URL::$(git remote get-url origin | sed -n "s/https:\/\/github.com\//https:\/\/${GIT_AUTHOR_NAME}:${GITHUB_TOKEN}@github.com\//p")"
+          echo -e "BRANCH_NAME = ${BRANCH_NAME}"
+          echo -e "TAG = ${TAG}"
+          echo -e "TITLE = ${TITLE}"
+          echo -e "LAST_COMMIT_MESSAGE = ${LAST_COMMIT_MESSAGE}"
+          echo -e "GITHUB_CONTEXT = ${GITHUB_CONTEXT}"
+
+      - name: Skip CI
+        if: contains(env.TITLE || env.LAST_COMMIT_MESSAGE, '[skip ci]') || contains(env.TITLE || env.LAST_COMMIT_MESSAGE, '[ci skip]')
+        uses: andymckay/cancel-action@0.2
+
+      - name: Yarn cache
+        uses: c-hive/gha-yarn-cache@v1
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Test
+        run: yarn test
+
+      - name: Build
+        run: yarn dist
+
+      - name: Flatten
+        run: |
+          npx publish-flat -o flattened
+          POSTVERSION_COMMAND="node ../node_modules/publish-flat/cli-copy.js -i package.json -o ../package.json version"
+          cat package.json | jq -r ".scripts.postversion |= \"${POSTVERSION_COMMAND}\"" | tee package.json
+
+      - name: Release on npm
+        if: github.event_name != 'pull_request' && env.BRANCH_NAME == 'main'
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+          GIT_AUTHOR_NAME: ffflobot
+          GIT_AUTHOR_EMAIL: ffflobot@users.noreply.github.com
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: |
+          git config --global "user.email" "${GIT_AUTHOR_EMAIL}"
+          git config --global "user.name" "${GIT_AUTHOR_NAME}"
+          echo -e "machine github.com\nlogin ${GITHUB_TOKEN}" > ~/.netrc
+          yarn release -r "${{env.REPO_URL}}"
+
+      - name: Release on GitHub
+        if: github.event_name != 'pull_request' && env.BRANCH_NAME == 'main'
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+        run: |
+          rm .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${env.GITHUB_TOKEN}" > ~/.npmrc
+          cd flattened
+          sed -i "s/\"name\": \"/\"name\": \"@ffflorian\//" package.json
+          npm publish --registry=https://npm.pkg.github.com || true
