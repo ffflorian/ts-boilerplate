@@ -21,19 +21,15 @@ jobs:
           GITHUB_CONTEXT: ${{toJson(github)}}
         run: |
           echo "::set-env name=BRANCH_NAME::$(git branch --show-current)"
-          echo "::set-env name=TAG::$(git tag --points-at ${{github.sha}})"
-          echo "::set-env name=TITLE::${{github.event.pull_request.title || github.event.head_commit.message}}"
           echo "::set-env name=LAST_COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{github.event.after}})"
           echo "::set-env name=PROJECT_PRIVATE::$(jq -r '.private' package.json)"
           echo -e "BRANCH_NAME = ${BRANCH_NAME}"
-          echo -e "TAG = ${TAG}"
-          echo -e "TITLE = ${TITLE}"
           echo -e "LAST_COMMIT_MESSAGE = ${LAST_COMMIT_MESSAGE}"
           echo -e "GITHUB_CONTEXT = ${GITHUB_CONTEXT}"
           echo -e "PROJECT_PRIVATE = ${PROJECT_PRIVATE}"
 
       - name: Skip CI
-        if: contains(env.TITLE || env.LAST_COMMIT_MESSAGE, '[skip ci]') || contains(env.TITLE || env.LAST_COMMIT_MESSAGE, '[ci skip]')
+        if: contains(env.LAST_COMMIT_MESSAGE, '[skip ci]') || contains(env.LAST_COMMIT_MESSAGE, '[ci skip]')
         uses: andymckay/cancel-action@0.2
 
       - name: Yarn cache
