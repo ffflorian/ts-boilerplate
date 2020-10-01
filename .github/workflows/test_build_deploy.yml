@@ -1,4 +1,4 @@
-name: Test, Build & Deploy
+name: Test, Build & Publish
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test_build_deploy:
+  test_build_publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,18 +19,18 @@ jobs:
       - name: Set & print environment variables
         env:
           GITHUB_CONTEXT: ${{toJson(github)}}
-          GITHUB_TOKEN: ${{github.token}}
         run: |
           echo "::set-env name=BRANCH_NAME::$(git branch --show-current)"
           echo "::set-env name=TAG::$(git tag --points-at ${{github.sha}})"
           echo "::set-env name=TITLE::${{github.event.pull_request.title || github.event.head_commit.message}}"
           echo "::set-env name=LAST_COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{github.event.after}})"
-          echo "::set-env name=REPO_URL::$(git remote get-url origin | sed -n "s/https:\/\/github.com\//https:\/\/${GIT_AUTHOR_NAME}:${GITHUB_TOKEN}@github.com\//p")"
+          echo "::set-env name=PROJECT_PRIVATE::$(jq -r '.private' package.json)"
           echo -e "BRANCH_NAME = ${BRANCH_NAME}"
           echo -e "TAG = ${TAG}"
           echo -e "TITLE = ${TITLE}"
           echo -e "LAST_COMMIT_MESSAGE = ${LAST_COMMIT_MESSAGE}"
           echo -e "GITHUB_CONTEXT = ${GITHUB_CONTEXT}"
+          echo -e "PROJECT_PRIVATE = ${PROJECT_PRIVATE}"
 
       - name: Skip CI
         if: contains(env.TITLE || env.LAST_COMMIT_MESSAGE, '[skip ci]') || contains(env.TITLE || env.LAST_COMMIT_MESSAGE, '[ci skip]')
@@ -55,7 +55,7 @@ jobs:
           cat package.json | jq -r ".scripts.postversion |= \"${POSTVERSION_COMMAND}\"" | tee package.json
 
       - name: Release on npm
-        if: github.event_name != 'pull_request' && env.BRANCH_NAME == 'main'
+        if: github.event_name != 'pull_request' && env.BRANCH_NAME == 'main' && env.PROJECT_PRIVATE != 'true'
         env:
           GITHUB_TOKEN: ${{github.token}}
           GIT_AUTHOR_NAME: ffflobot
@@ -64,11 +64,12 @@ jobs:
         run: |
           git config --global "user.email" "${GIT_AUTHOR_EMAIL}"
           git config --global "user.name" "${GIT_AUTHOR_NAME}"
+          REPO_URL=$(git remote get-url origin | sed -n "s/https:\/\/github.com\//https:\/\/${GIT_AUTHOR_NAME}:${GITHUB_TOKEN}@github.com\//p")"
           echo -e "machine github.com\nlogin ${GITHUB_TOKEN}" > ~/.netrc
           yarn release -r "${{env.REPO_URL}}"
 
       - name: Release on GitHub
-        if: github.event_name != 'pull_request' && env.BRANCH_NAME == 'main'
+        if: github.event_name != 'pull_request' && env.BRANCH_NAME == 'main' && env.PROJECT_PRIVATE != 'true'
         env:
           GITHUB_TOKEN: ${{github.token}}
         run: |
