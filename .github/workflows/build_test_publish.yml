@@ -62,7 +62,6 @@ jobs:
       #     git config --global "user.name" "${GIT_AUTHOR_NAME}"
       #     REPO_URL="$(git remote get-url origin | sed -n "s/https:\/\/github.com\//https:\/\/${GIT_AUTHOR_NAME}:${GITHUB_TOKEN}@github.com\//p")"
       #     yarn release -r "${REPO_URL}"
-
       # - name: Release on GitHub
       #   if: env.CI_SKIP == 'false'
       #   env:
