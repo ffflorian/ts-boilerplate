@@ -6,7 +6,7 @@
  * ```
  * #!/usr/bin/env node
  *
- * import * as commander from 'commander';
+ * import {program as commander} from 'commander';
  *
  * const {description, name, version} = require('../package.json');
  *
