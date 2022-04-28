@@ -7,7 +7,7 @@
   "description": "A boilerplate for a modern™ TypeScript project.",
   "devDependencies": {
     "@ffflorian/eslint-config": "0.8.1",
-    "@ffflorian/prettier-config": "0.1.2",
+    "@ffflorian/prettier-config": "0.1.3",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
     "@types/jasmine": "4.0.3",
