@@ -67,8 +67,8 @@
     "lint:ts:spec": "eslint --ignore-path .gitignore --ext .ts --config .eslintrc.spec.json spec/",
     "prettier": "prettier \"*.{json,md,yml}\"",
     "release": "semantic-release",
-    "start": "ts-node src/cli.ts",
-    "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
+    "start": "ts-node-esm src/cli.ts",
+    "test": "ts-node-esm -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
   "type": "module",
   "version": "1.0.0"
