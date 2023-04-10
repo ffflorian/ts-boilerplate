@@ -1,7 +1,7 @@
 {
   "author": "Florian Imdahl <git@ffflorian.de>",
   "bin": {
-    "my-cli": "dist/cli.js"
+    "my-cli": "dist/cjs/cli.js"
   },
   "dependencies": {},
   "description": "A boilerplate for a modern™ TypeScript project.",
@@ -35,7 +35,7 @@
     "typescript": "5.0.4"
   },
   "engines": {
-    "node": ">= 10.9"
+    "node": ">= 14.16"
   },
   "files": [
     "dist"
@@ -45,26 +45,31 @@
     "typescript"
   ],
   "license": "GPL-3.0",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
   "name": "@ffflorian/ts-boilerplate",
   "prettier": "@ffflorian/prettier-config",
   "private": true,
   "repository": "https://github.com/ffflorian/ts-boilerplate.git",
   "scripts": {
-    "build": "tsc",
+    "build": "yarn build:cjs && yarn build:mjs && yarn generate:packagejson",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:mjs": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
     "dist": "yarn clean && yarn build",
     "fix": "yarn fix:other && yarn fix:ts",
     "fix:other": "yarn prettier --write",
     "fix:ts": "yarn lint:ts --fix",
+    "generate:packagejson": "./bin/generate-hybrid-package-json.sh",
     "lint": "yarn lint:ts && yarn lint:ts:spec && yarn lint:other",
     "lint:other": "yarn prettier --list-different",
     "lint:ts": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:ts:spec": "eslint --ignore-path .gitignore --ext .ts --config .eslintrc.spec.json spec/",
     "prettier": "prettier \"*.{json,md,yml}\"",
     "release": "semantic-release",
-    "start": "ts-node src/cli.ts",
-    "test": "ts-node -P tsconfig.jasmine.json node_modules/.bin/jasmine"
+    "start": "ts-node-esm src/cli.ts",
+    "test": "ts-node-esm -P tsconfig.jasmine.json node_modules/.bin/jasmine"
   },
+  "type": "module",
   "version": "1.0.0"
 }

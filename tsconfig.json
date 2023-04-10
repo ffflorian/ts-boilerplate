@@ -2,21 +2,22 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "declaration": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "noEmitOnError": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "outDir": "dist",
+    "outDir": "dist/mjs",
     "rootDir": "src",
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
-    "target": "ES6"
+    "target": "ES2017"
   },
   "exclude": ["dist", "node_modules", "spec"]
 }
