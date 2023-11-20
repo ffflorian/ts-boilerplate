@@ -6,7 +6,7 @@
   "description": "A boilerplate for a modern™ TypeScript project.",
   "devDependencies": {
     "@evilmartians/lefthook": "1.5.2",
-    "@ffflorian/eslint-config": "0.8.3",
+    "@ffflorian/eslint-config": "0.10.1",
     "@ffflorian/prettier-config": "0.3.1",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/git": "10.0.1",

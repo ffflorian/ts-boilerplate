@@ -271,13 +271,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ffflorian/eslint-config@npm:0.8.3":
-  version: 0.8.3
-  resolution: "@ffflorian/eslint-config@npm:0.8.3"
+"@ffflorian/eslint-config@npm:0.10.1":
+  version: 0.10.1
+  resolution: "@ffflorian/eslint-config@npm:0.10.1"
   peerDependencies:
+    "@babel/eslint-parser": ">= 7.0.0"
     "@typescript-eslint/eslint-plugin": ">= 4.14.1"
     "@typescript-eslint/parser": ">= 4.14.1"
-    babel-eslint: ">= 10.0.0"
     eslint: ">= 6.8.0"
     eslint-config-prettier: ">= 4.0.0"
     eslint-plugin-import: ">= 2.20.0"
@@ -289,7 +289,7 @@ __metadata:
     eslint-plugin-sort-keys-fix: ">= 1.1.0"
     eslint-plugin-typescript-sort-keys: ">= 0.8.0"
     eslint-plugin-unused-imports: ">= 1.1.0"
-  checksum: fcb761d38fc4814b7c91fa39083ee1f11afc7815e44721eb465d82f4b20daed9e31d5c509500f937cfe7b4798fac0c3b73b0fd228e399c839472c19de143993e
+  checksum: b9b13f44329d76ebbfae2a2e6689161c38196f0d156a80eb5eac3d6dd3b70797a4571cc53c62b83b5f053f23069d5a0e689b290ae5588fa48cf99d688f8e3750
   languageName: node
   linkType: hard
 
@@ -307,7 +307,7 @@ __metadata:
   resolution: "@ffflorian/ts-boilerplate@workspace:."
   dependencies:
     "@evilmartians/lefthook": "npm:1.5.2"
-    "@ffflorian/eslint-config": "npm:0.8.3"
+    "@ffflorian/eslint-config": "npm:0.10.1"
     "@ffflorian/prettier-config": "npm:0.3.1"
     "@semantic-release/changelog": "npm:6.0.3"
     "@semantic-release/git": "npm:10.0.1"
