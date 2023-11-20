@@ -33,6 +33,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/eslint-parser@npm:7.23.3":
+  version: 7.23.3
+  resolution: "@babel/eslint-parser@npm:7.23.3"
+  dependencies:
+    "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
+    eslint-visitor-keys: "npm:^2.1.0"
+    semver: "npm:^6.3.1"
+  peerDependencies:
+    "@babel/core": ^7.11.0
+    eslint: ^7.5.0 || ^8.0.0
+  checksum: bc487f67aac64f1f8b351b8ec5e83bd1de5770e2e39c648d4df486e4079110f8594ef5b60b6e8379a9bb944dbbe5d96295f04fa47ef17901186568875b804b99
+  languageName: node
+  linkType: hard
+
 "@babel/generator@npm:^7.23.0":
   version: 7.23.0
   resolution: "@babel/generator@npm:7.23.0"
@@ -306,6 +320,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ffflorian/ts-boilerplate@workspace:."
   dependencies:
+    "@babel/eslint-parser": "npm:7.23.3"
     "@evilmartians/lefthook": "npm:1.5.2"
     "@ffflorian/eslint-config": "npm:0.10.1"
     "@ffflorian/prettier-config": "npm:0.3.1"
@@ -447,6 +462,15 @@ __metadata:
     "@jridgewell/resolve-uri": "npm:3.1.0"
     "@jridgewell/sourcemap-codec": "npm:1.4.14"
   checksum: f4fabdddf82398a797bcdbb51c574cd69b383db041a6cae1a6a91478681d6aab340c01af655cfd8c6e01cde97f63436a1445f08297cdd33587621cf05ffa0d55
+  languageName: node
+  linkType: hard
+
+"@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1":
+  version: 5.1.1-v1
+  resolution: "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1"
+  dependencies:
+    eslint-scope: "npm:5.1.1"
+  checksum: f2e3b2d6a6e2d9f163ca22105910c9f850dc4897af0aea3ef0a5886b63d8e1ba6505b71c99cb78a3bba24a09557d601eb21c8dede3f3213753fcfef364eb0e57
   languageName: node
   linkType: hard
 
@@ -2938,7 +2962,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^5.1.1":
+"eslint-scope@npm:5.1.1, eslint-scope@npm:^5.1.1":
   version: 5.1.1
   resolution: "eslint-scope@npm:5.1.1"
   dependencies:
@@ -2964,7 +2988,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^2.0.0":
+"eslint-visitor-keys@npm:^2.0.0, eslint-visitor-keys@npm:^2.1.0":
   version: 2.1.0
   resolution: "eslint-visitor-keys@npm:2.1.0"
   checksum: db4547eef5039122d518fa307e938ceb8589da5f6e8f5222efaf14dd62f748ce82e2d2becd3ff9412a50350b726bda95dbea8515a471074547daefa58aee8735

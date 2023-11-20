@@ -5,6 +5,7 @@
   },
   "description": "A boilerplate for a modern™ TypeScript project.",
   "devDependencies": {
+    "@babel/eslint-parser": "7.23.3",
     "@evilmartians/lefthook": "1.5.2",
     "@ffflorian/eslint-config": "0.10.1",
     "@ffflorian/prettier-config": "0.3.1",
