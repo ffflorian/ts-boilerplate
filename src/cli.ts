@@ -17,3 +17,5 @@
  *  .parse(process.argv);
  * ```
  */
+
+export {};
